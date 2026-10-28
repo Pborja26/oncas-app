@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect, useState } from 'react';
 import { auth } from './services/auth';
 import type { User } from './services/auth';
@@ -24,27 +23,29 @@ function App() {
   }, []);
 
   return (
-    <>
-      <section id="center">
-        <input 
-          onChange={(e) => setLogin((prev) => ({...prev, username: e.target.value}))}
-        />
-        <input 
-          onChange={(e) => setLogin((prev) => ({...prev, password: e.target.value}))}
-          type='password'
-        />
-        <button
-          onClick={() => auth.login(login.username, login.password)}
-        >
-          Login
-        </button>
-        <button
-          onClick={() => auth.logout()}
-        >
-          Logout
-        </button>
-      </section>
-    </>
+    <section className="layout">
+      <input 
+        onChange={(e) => setLogin((prev) => ({...prev, username: e.target.value}))}
+        className="input"
+      />
+      <input 
+        onChange={(e) => setLogin((prev) => ({...prev, password: e.target.value}))}
+        className="input"
+        type='password'
+      />
+      <button
+        onClick={() => auth.login(login.username, login.password)}
+        className="btn"
+      >
+        Login
+      </button>
+      <button
+        onClick={() => auth.logout()}
+        className="btn"
+      >
+        Logout
+      </button>
+    </section>
   )
 }
 

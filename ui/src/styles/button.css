@@ -1,0 +1,6 @@
+@layer components {
+  .btn {
+    @apply w-3xs bg-amber-300 rounded-2xl cursor-pointer hover:bg-red-700 active:translate-px
+  }
+
+};

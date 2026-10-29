@@ -1,10 +1,12 @@
 from rest_framework import viewsets
-from utils.filtersets import can_see_inactive_records
+from utils import filtersets
+from utils import models
+from utils import serializers
 
 class InactiveProtectedMixin:
     def get_queryset(self):
         qs = super().get_queryset()
-        if not can_see_inactive_records(self.request.user, qs.model):
+        if not filtersets.can_see_inactive_records(self.request.user, qs.model):
             qs = qs.filter(active=True)
         return qs
 
@@ -18,3 +20,8 @@ class BaseAuditViewSet(InactiveProtectedMixin, viewsets.ModelViewSet):
         serializer.save(
             updated_by=self.request.user
         )
+
+class ThemeViewSet(BaseAuditViewSet):
+    queryset = models.Theme.objects.select_related("category")
+    filterset_class = filtersets.ThemeFilterSet
+    serializer_class = serializers.ThemeSerializer

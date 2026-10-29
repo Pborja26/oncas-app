@@ -23,12 +23,12 @@ class BaseAuditModel(TimeStampedModel):
     class Meta(TimeStampedModel.Meta):
         abstract = True
 
-class ThemeCategories(BaseAuditModel):
+class ThemeCategorie(BaseAuditModel):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
 
 class Theme(BaseAuditModel):
     name = models.CharField(max_length=20)
     color = models.CharField(max_length=30, unique=True)
-    category = models.ForeignKey(ThemeCategories, on_delete=models.CASCADE, related_name="colors")
+    category = models.ForeignKey(ThemeCategorie, on_delete=models.CASCADE, related_name="colors")
     description = models.TextField(null=True, blank=True)

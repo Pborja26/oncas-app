@@ -1,25 +1,4 @@
-@import "tailwindcss";
-@import "./styles/index.css";
-
-@layer base {
-  html,
-  body,
-  #root {
-    @apply min-h-screen min-w-screen;
-  }
-
-  body {
-    @apply bg-gray-100 font-sans text-gray-900 antialiased;
-  }
-
-  .layout {
-    @apply
-     bg-gray-300 
-      flex flex-col 
-      justify-center 
-      items-center 
-      gap-2
-      min-h-screen
-      min-w-screen
-  }
+body {
+  margin: 0;
+  border: 0;
 }

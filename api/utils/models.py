@@ -11,6 +11,7 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
+        default_permissions = ("add", "change", "delete", "view", "view_inactive")
 
     def __str__(self):
         return str(self.pk)
@@ -19,5 +20,15 @@ class BaseAuditModel(TimeStampedModel):
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="%(class)s_created_by", help_text="User who created the record.")
     updated_by =models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="%(class)s_updated_by", help_text="User who last updated the record.")
 
-    class Meta:
+    class Meta(TimeStampedModel.Meta):
         abstract = True
+
+class ThemeCategories(BaseAuditModel):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(null=True, blank=True)
+
+class Theme(BaseAuditModel):
+    name = models.CharField(max_length=20)
+    color = models.CharField(max_length=30, unique=True)
+    category = models.ForeignKey(ThemeCategories, on_delete=models.CASCADE, related_name="colors")
+    description = models.TextField(null=True, blank=True)
